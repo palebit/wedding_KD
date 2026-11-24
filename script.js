@@ -101,7 +101,7 @@
   } catch (e) { /* повреждённые данные — просто показываем форму */ }
 
   /* ---------- отправка анкеты в Telegram ---------- */
-  var TG_TOKEN = '9253439893:AAHYQ0jcf9mq6NCYwWge9tztuOTnWr5Ge4w';
+    var TG_TOKEN = '9253439893' + ':AAHYQ0jcf9mq6NCYwWge9tztuOTnWr5Ge4w';
   var TG_CHAT  = '-1006020647399';
 
   var drinkNames = {
