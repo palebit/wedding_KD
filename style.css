@@ -1,0 +1,406 @@
+/* ============================================================
+   Свадебное приглашение — современная классика
+   ============================================================ */
+
+:root{
+  /* --- палитра --- */
+  --bg:     oklch(0.955 0.012 90);   /* тёплый крем */
+  --text:   oklch(0.28 0.012 70);    /* почти чёрный, тёплый */
+  --text-2: oklch(0.48 0.012 72);    /* приглушённый */
+  --line:   oklch(0.28 0.012 70 / 0.22);
+  --accent: oklch(0.40 0.045 155);   /* глубокий зелёный */
+
+  /* --- типографика --- */
+  --f-script: 'Marck Script', 'Cormorant', cursive;
+  --f-serif: 'Cormorant', 'PT Serif', serif;
+  --f-display: 'Playfair Display', 'Cormorant', serif;
+  --f-sans: 'Manrope', 'PT Sans', sans-serif;
+
+  --measure: 42rem;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+body{
+  font-family:var(--f-serif);
+  font-size:1.125rem;
+  line-height:1.7;
+  color:var(--text);
+  background:var(--bg);
+  -webkit-font-smoothing:antialiased;
+  min-height:100dvh;
+}
+
+::selection{background:oklch(0.40 0.045 155 / 0.16)}
+
+a{color:inherit;text-decoration-color:var(--line);text-underline-offset:3px}
+a:hover{color:var(--accent);text-decoration-color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+button{cursor:pointer;font:inherit;color:inherit;background:none;border:none}
+
+/* ---------------- каркас ---------------- */
+.letter{
+  max-width:var(--measure);
+  margin:0 auto;
+  padding:0 1.5rem;
+}
+section{
+  padding:clamp(4rem,11vh,7rem) 0;
+  text-align:center;
+}
+section + section{border-top:1px solid var(--line)}
+
+/* маленькие рубрики */
+.kicker {
+  font-family: var(--f-sans);
+  font-size: 1.5rem;
+  letter-spacing: 0.4em; 
+  color: var(--text-2);
+  margin-bottom: 2rem; /* Чуть больше отступ снизу */
+  text-align: center;  /* Центрируем заголовок */
+  display: block;      
+}
+
+h2 {
+  font-family: 'Italiana', 'Cormorant Garamond', serif; /* Более тонкий и современный, чем Playfair */
+  font-weight: 400;
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  line-height: 1.3;
+  color: var(--text);
+}
+.lead {
+  font-family: var(--f-serif);
+  font-size: 1.1rem;
+  color: var(--text-2);
+  max-width: 30rem;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+.muted{color:var(--text-2)}
+.script{font-family:var(--f-script);font-weight:400}
+
+/* ---------------- обложка ---------------- */
+.cover{
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:3rem 0 4.5rem;
+  position:relative;
+}
+.cover{border-top:none}
+.cover-photo{
+  width:min(320px,78vw);
+  aspect-ratio:1/1;
+  object-fit:cover;
+  object-position:50% 40%;
+  border-radius:6px;
+  outline:1px solid var(--accent);
+  outline-offset:6px;
+  margin-bottom:2.6rem;
+}
+/* Крупная строка «Дорогие родные и друзья!» */
+#invite .dear {
+  font-family: 'Great Vibes', 'Segoe Script', cursive; /* Тот же, что у имен */
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  color: var(--accent); /* Зеленый акцент */
+  margin-bottom: 0.5rem;
+  font-weight: normal;
+}
+.names{
+  font-family: 'Italiana', 'Cormorant Garamond', serif;
+  font-family: 'Great Vibes', cursive;
+  font-weight: 400;
+  font-size: clamp(2rem, 7.5vw, 3.6rem); /* крупно, но влезает в одну строку */
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  text-wrap: nowrap;                    /* не переносить по словам */
+  white-space: nowrap;                  /* страховка */
+  margin-bottom: 2rem;                  /* отступ до фото */
+  color: var(--text);
+}
+.names .amp{
+  display: inline;                      /* было block → стало inline */
+  font-size: 0.75em;
+  color: var(--accent);
+  margin: 0 0.15em;
+  vertical-align: baseline;
+}
+.cover-date{
+  font-family: 'Great Vibes', 'Segoe Script', cursive; /* Тот же шрифт, что и у имён */
+  font-size: clamp(2rem, 6vw, 3rem); /* Делаем крупнее и адаптивнее */
+  letter-spacing: 0.05em;           /* Немного раздвигаем буквы/цифры */
+  color: var(--text);               /* Основной цвет */
+  margin-top: 1.5rem;               /* Отступ сверху */
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+}
+.cover-city{
+  font-family: 'Great Vibes', 'Segoe Script', cursive; /* Тот же шрифт */
+  font-size: clamp(1.3rem, 4vw, 2rem); /* Чуть меньше даты */
+  color: var(--accent);             /* Выделяем зеленым акцентом (можно заменить на var(--text)) */
+  letter-spacing: 0.05em;
+  margin-top: 0;
+}
+.scroll-cue{
+  position:absolute;left:50%;bottom:1.8rem;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  font-family:var(--f-sans);font-size:.6rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--text-2);
+}
+.scroll-cue svg{animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(7px)}
+}
+
+/* ---------------- блок даты ---------------- */
+.date-caption{
+  font-family:var(--f-sans);font-size:.7rem;letter-spacing:.32em;
+  text-transform:uppercase;color:var(--text-2);
+  margin:2.2rem 0 1.2rem;
+}
+.date-row{
+  display:flex;align-items:center;justify-content:center;
+  gap:clamp(.9rem,4vw,1.6rem);
+}
+.date-row::before,.date-row::after{
+  content:"";height:1px;flex:1 1 2rem;max-width:6rem;background:var(--line);
+}
+.date-row .day{
+  font-family:var(--f-display);
+  font-weight:400;
+  font-size:clamp(3rem,11vw,4.4rem);
+  line-height:1;color:var(--text);
+}
+.date-row .side{
+  font-family:var(--f-sans);font-size:.78rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--text-2);
+  white-space:nowrap;
+}
+.calendar{
+  display:inline-block;
+  margin-top:2.4rem;
+}
+.calendar caption{
+  font-family:var(--f-sans);font-size:.66rem;letter-spacing:.3em;
+  text-transform:uppercase;color:var(--text-2);
+  padding-bottom:.9rem;
+}
+.calendar th,.calendar td{
+  width:2.35rem;height:2.35rem;
+  font-family:var(--f-sans);font-size:.82rem;font-weight:400;
+  text-align:center;color:var(--text);
+}
+.calendar th{color:var(--text-2);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase}
+.calendar td{position:relative}
+.calendar .we{color:var(--accent)}
+.calendar .mark{
+  font-family:var(--f-script);font-size:1.25rem;color:var(--accent);
+}
+.calendar .mark::after{
+  content:"";position:absolute;inset:-2px -4px;
+  border:1.5px solid var(--accent);
+  border-radius:50% 46% 52% 48% / 48% 52% 46% 54%;
+  transform:rotate(-4deg);
+  opacity:.85;
+}
+
+/* ---------------- локация ---------------- */
+.place-name{font-size:1.45rem;font-weight:500;margin-bottom:.3rem}
+.address{color:var(--text-2);margin-bottom:1.8rem}
+.note{
+  font-size:.95rem;color:var(--text-2);
+  max-width:34rem;margin:1.8rem auto 0;
+}
+
+.btn{
+  display:inline-block;
+  font-family:var(--f-sans);font-size:.7rem;font-weight:600;
+  letter-spacing:.24em;text-transform:uppercase;
+  padding:1rem 2.2rem;
+  border:1px solid var(--text);
+  color:var(--text);text-decoration:none;
+  transition:color .15s ease, border-color .15s ease, background-color .15s ease;
+}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn:active{transform:translateY(1px)}
+
+/* ---------------- программа ---------------- */
+.timeline {
+  max-width: 20rem;      /* Ограничиваем ширину блока */
+  margin: 0 auto;        /* ЦЕНТРИРУЕМ весь блок на странице */
+  text-align: left;      /* Текст внутри остается слева */
+  border-left: 1px solid var(--line);
+  padding-left: 2rem;    /* Отступ от линии до текста */
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+  position: relative;    /* Важно для позиционирования точек */
+}
+.timeline li {
+  list-style: none;
+  position: relative;
+}
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: calc(-2rem - 5px); /* Позиционируем ровно на линии */
+  top: 0.55em;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.timeline time {
+  font-family: var(--f-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.2rem;
+}
+.timeline .ev {
+  font-size: 1.15rem;
+}
+/* ---------------- этикетка (вместо цветов) ---------------- */
+.label-card{
+  border:1px solid var(--text);
+  outline:1px solid var(--text);
+  outline-offset:5px;
+  max-width:30rem;margin:2.4rem auto 0;
+  padding:2.5rem 1.8rem 2.1rem;
+}
+.label-card .lc-top{
+  font-family:var(--f-sans);font-size:.6rem;letter-spacing:.34em;
+  text-transform:uppercase;color:var(--text-2);
+}
+.label-card .lc-name{
+  font-family:var(--f-script);
+  font-size:clamp(2rem,7vw,2.7rem);
+  color:var(--accent);
+  margin:.5rem 0 .2rem;
+  line-height:1.1;
+}
+.label-card .lc-year{
+  font-family:var(--f-sans);font-size:.68rem;letter-spacing:.4em;
+  text-transform:uppercase;margin-bottom:1.1rem;
+}
+.label-card hr{
+  border:none;border-top:1px solid var(--line);
+  width:56px;margin:0 auto 1.1rem;
+}
+.label-card p{font-size:1.02rem}
+.label-card .lc-foot{
+  margin-top:1.3rem;
+  font-family:var(--f-sans);font-size:.58rem;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--text-2);
+}
+
+/* ---------------- анкета ---------------- */
+form{max-width:26rem;margin:2.2rem auto 0;text-align:left}
+.field{margin-bottom:1.7rem}
+.field label,.group-title{
+  display:block;
+  font-family:var(--f-sans);font-size:.64rem;font-weight:600;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--text-2);
+  margin-bottom:.55rem;
+}
+.field input[type=text],.field textarea{
+  width:100%;
+  font-family:var(--f-serif);font-size:1.1rem;color:var(--text);
+  background:transparent;
+  border:none;border-bottom:1px solid var(--line);
+  padding:.45rem .1rem;
+  transition:border-color .2s ease;
+}
+.field textarea{resize:vertical;min-height:3.2rem;line-height:1.5}
+.field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--accent)}
+.field ::placeholder{color:oklch(0.48 0.012 72 / 0.55)}
+
+.choices{display:flex;flex-wrap:wrap;gap:.6rem}
+.chip{
+  font-family:var(--f-sans);font-size:.78rem;font-weight:500;
+  letter-spacing:.06em;
+  border:1px solid var(--line);
+  padding:.65rem 1.1rem;
+  cursor:pointer;user-select:none;
+  transition:border-color .15s ease,color .15s ease;
+  min-height:44px;display:inline-flex;align-items:center;
+}
+.chip input{position:absolute;opacity:0;pointer-events:none}
+.chip:hover{border-color:var(--text)}
+.chip:has(input:checked){border-color:var(--accent);color:var(--accent)}
+.chip:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:3px}
+
+form .btn{width:100%;margin-top:.4rem;background:transparent}
+.form-error{
+  display:none;
+  font-family:var(--f-sans);font-size:.75rem;color:var(--accent);
+  margin-top:.8rem;letter-spacing:.04em;
+}
+.form-error.show{display:block}
+
+.thanks{display:none;text-align:center;padding:1rem 0}
+.thanks .script{font-size:2.3rem;color:var(--accent);display:block;margin-bottom:.7rem}
+.thanks .edit{
+  margin-top:1.4rem;
+  font-family:var(--f-sans);font-size:.68rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--text-2);
+  text-decoration:underline;text-underline-offset:4px;
+}
+.rsvp-done form{display:none}
+.rsvp-done .thanks{display:block}
+
+/* ---------------- контакты / финал ---------------- */
+.contact-line{font-size:1.25rem;margin-bottom:.4rem}
+.contact-line a{font-weight:500}
+
+.countdown{
+  display:flex;justify-content:center;gap:clamp(1.2rem,6vw,3rem);
+  margin-top:2.4rem;
+}
+.countdown .num{
+  font-family:var(--f-display);
+  font-weight:400;
+  font-size:clamp(2.4rem,8vw,3.4rem);
+  line-height:1;display:block;
+}
+.countdown .cap{
+  font-family:var(--f-sans);font-size:.58rem;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--text-2);
+}
+footer{
+  text-align:center;padding:0 1.5rem 3.5rem;
+  border-top:1px solid var(--line);
+  padding-top:3rem;
+  color:var(--text-2);
+}
+footer .script{font-size:1.9rem;color:var(--text);display:block;margin-bottom:.9rem}
+footer small{
+  font-family:var(--f-sans);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;
+}
+
+/* ---------------- появление при скролле ---------------- */
+body.armed [data-reveal]{
+  opacity:0;transform:translateY(16px);
+  transition:opacity .7s ease,transform .7s ease;
+  transition-delay:var(--d,0s);
+}
+body.armed [data-reveal].in{opacity:1;transform:none}
+body.armed [data-reveal-words] .w{
+  display:inline-block;
+  opacity:0;transform:translateY(.5em);
+  transition:opacity .55s ease,transform .55s ease;
+  transition-delay:var(--d,0s);
+}
+body.armed [data-reveal-words].in .w{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  body.armed [data-reveal],body.armed [data-reveal-words] .w{opacity:1;transform:none}
+}
