@@ -100,9 +100,8 @@
     }
   } catch (e) { /* повреждённые данные — просто показываем форму */ }
 
-  /* ---------- отправка анкеты в Telegram ---------- */
-    var TG_TOKEN = '9253439893' + ':AAHYQ0jcf9mq6NCYwWge9tztuOTnWr5Ge4w';
-  var TG_CHAT  = '-1006020647399';
+  /* ---------- отправка анкеты через Google-скрипт в Telegram ---------- */
+  var FORM_URL = 'https://script.google.com/macros/s/AKfycbz0Ez0YWFSMxgQV3fi0psL0JcZ2bVigp_68vijgyl38gBKw1plIGQa2-PcgyLz0Wcfj/exec';
 
   var drinkNames = {
     white: 'Белое вино', red: 'Красное вино', champagne: 'Шампанское',
@@ -124,29 +123,21 @@
     var drinkText = drinkVals.map(function (v) { return drinkNames[v] || v; });
     var note = form.elements.note.value.trim();
 
-    // запоминаем ответ в браузере гостя (как раньше)
+    // запоминаем ответ в браузере гостя
     var data = { name: name, attend: attendEl.value, drinks: drinkVals, note: note, ts: new Date().toISOString() };
     try { localStorage.setItem(KEY, JSON.stringify(data)); } catch (e) {}
-
-    var text = '💌 Новый ответ на приглашение!\n\n' +
-      '👤 ' + name + '\n' +
-      (attendEl.value === 'come' ? '✅ Придёт' : '❌ Не сможет прийти') + '\n' +
-      (drinkText.length ? '🍷 ' + drinkText.join(', ') + '\n' : '') +
-      (note ? '📝 ' + note : '');
 
     var btn = form.querySelector('.btn');
     btn.disabled = true;
     btn.textContent = 'Отправляю…';
 
-    fetch('https://api.telegram.org/bot' + TG_TOKEN + '/sendMessage', {
+    fetch(FORM_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ chat_id: TG_CHAT, text: text })
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ name: name, attend: attendEl.value, drinks: drinkText, note: note })
     })
-    .then(function (res) {
-      if (!res.ok) throw new Error('telegram ' + res.status);
-      showThanks();
-    })
+    .then(function () { showThanks(); })
     .catch(function () {
       error.textContent = 'Не получилось отправить. Проверьте интернет и попробуйте ещё раз — или напишите Кристине в Telegram.';
       error.classList.add('show');
